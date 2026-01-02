@@ -1,0 +1,5 @@
+.fr-icon-home-line:before {
+  background-color: var(--background-action-high-blue-france);
+  -webkit-mask-image: url(/icons/system/home-line.svg);
+  mask-image: url(/icons/system/home-line.svg);
+}
