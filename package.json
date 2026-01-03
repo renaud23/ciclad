@@ -7,8 +7,10 @@
     "dev": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "test": "npx vitest --browser=chromium",
     "preview": "vite preview",
-    "postinstall": "node ./node_modules/@axa-fr/react-oidc/bin/copy-service-worker-files.mjs public"
+    "postinstall": "node ./node_modules/@axa-fr/react-oidc/bin/copy-service-worker-files.mjs public",
+    "test:browser": "vitest --config=vitest.browser.config.ts"
   },
   "dependencies": {
     "@axa-fr/react-oidc": "^7.26.1-alpha.1797",
@@ -21,19 +23,25 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
     "@trivago/prettier-plugin-sort-imports": "^6.0.0",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/browser-playwright": "^4.0.16",
+    "@vitest/ui": "^4.0.16",
     "eslint": "^9.39.2",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "jsdom": "^27.4.0",
     "prettier": "^3.7.4",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.16",
+    "vitest-browser-react": "^2.0.2"
   }
 }

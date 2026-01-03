@@ -5,7 +5,7 @@ export const ciladeApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://somewhere' }),
   endpoints: (build) => ({
     getSomething: build.query<unknown, string>({
-      query: (name) => `pokemon/${name}`,
+      query: (name) => `ciclad/${name}`,
     }),
   }),
 })

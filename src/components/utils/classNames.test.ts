@@ -7,7 +7,6 @@ describe('Test classNames', () => {
     expect(classNames('toto')).toBe('toto')
   })
   test('{toto: true}', () => {
-    console.log(`-${classNames({ toto: true })}-`)
     expect(classNames({ tutu: true })).toBe('tutu')
   })
   test('toto tutu', () => {

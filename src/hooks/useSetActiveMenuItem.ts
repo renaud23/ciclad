@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
+import type { RootState } from '@src/App'
 import { setActiveActiveMenuItem } from '@src/applicationSlice'
-import type { RootState } from '@src/main'
 import { useDispatch, useSelector } from 'react-redux'
 
 export function useSetActiveMenuItem(index: number) {
