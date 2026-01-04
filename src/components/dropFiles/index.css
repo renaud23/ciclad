@@ -2,8 +2,19 @@
   height: 250px;
   width: 100%;
   border: dashed 2px #007bff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   .input-file {
     visibility: hidden;
+  }
+
+  label {
+    text-align: center;
+  }
+
+  .upload-button {
+    margin: auto;
   }
 }

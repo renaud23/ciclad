@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react'
 
+import { UploadFile } from '../images/UploadFile'
 import { classNames } from '../utils/classNames'
 import './index.css'
 
@@ -89,6 +90,7 @@ export function DropFiles({ onDropFile }: DropFilesProps) {
         }
       }}
     >
+      <UploadFile />
       <label>
         <p>Glissez-déposez votre fichier CSV</p>
       </label>
@@ -105,6 +107,7 @@ export function DropFiles({ onDropFile }: DropFilesProps) {
           'fr-btn',
           'fr-btn--icon-right',
           'fr-icon-upload-2-line',
+          'upload-button',
         )}
         onClick={() => {
           inputEl?.current?.click()

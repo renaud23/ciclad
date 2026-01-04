@@ -11,6 +11,7 @@ export function UploadCsv() {
   const onDropFile = useCallback((file: File) => {
     console.log('Fichier reçu dans UploadCsv : ', file.name)
   }, [])
+
   return (
     <OidcSecure>
       <Layout>
