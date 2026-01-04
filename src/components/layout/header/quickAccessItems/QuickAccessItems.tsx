@@ -1,9 +1,11 @@
 import { useOidc } from '@axa-fr/react-oidc'
 import { classNames } from '@src/components/utils/classNames'
+import { useNavigate } from 'react-router'
 
 export function QuickAccessItems() {
   // fr-icon-lock-line
   const { isAuthenticated, login, logout } = useOidc()
+  const navigate = useNavigate()
 
   const title = isAuthenticated ? 'Se déconnecter' : 'Se connecter'
 
@@ -20,9 +22,10 @@ export function QuickAccessItems() {
               'fr-icon-lock-unlock-line': isAuthenticated,
               'fr-icon-lock-line': !isAuthenticated,
             })}
-            onClick={() => {
+            onClick={async () => {
               if (isAuthenticated) {
-                logout()
+                navigate('/')
+                await logout()
               } else {
                 login()
               }

@@ -16,9 +16,10 @@ function getItemsFromDragEvent(e: DragEvent) {
 
 type DropFilesProps = {
   onDropFile?: (file: File) => void
+  className?: string
 }
 
-export function DropFiles({ onDropFile }: DropFilesProps) {
+export function DropFiles({ onDropFile, className }: DropFilesProps) {
   const [file, setFile] = useState<File | null>(null)
   const zoneEl = useRef<HTMLDivElement>(null)
   const inputEl = useRef<HTMLInputElement>(null)
@@ -65,7 +66,7 @@ export function DropFiles({ onDropFile }: DropFilesProps) {
 
   return (
     <div
-      className="drag-drop-files"
+      className={classNames('drag-drop-files', className ?? '')}
       ref={zoneEl}
       onDragOver={(e) => {
         const items = [...e.dataTransfer.items].filter(
@@ -90,7 +91,7 @@ export function DropFiles({ onDropFile }: DropFilesProps) {
         }
       }}
     >
-      <UploadFileImage />
+      <UploadFileImage className="fr-mt-1w" />
       <label>
         <p>Glissez-déposez votre fichier CSV</p>
       </label>

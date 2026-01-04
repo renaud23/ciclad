@@ -8,6 +8,7 @@ import { useOidcConfiguration } from './hooks/useOidcConfiguration'
 import { Accueil } from './pages/accueil/Accueil'
 import { PlanDuSite } from './pages/planDuSite/PlanDuSite'
 import { UploadCsv } from './pages/uploadCsv/UploadCsv'
+import uploadCsvSlideReducer from './pages/uploadCsv/slice/uploadCsvSlice'
 
 const router = createBrowserRouter([
   { path: '/', Component: Accueil },
@@ -16,7 +17,10 @@ const router = createBrowserRouter([
 ])
 
 const store = configureStore({
-  reducer: { application: applicationReducer },
+  reducer: {
+    application: applicationReducer,
+    uploadCsv: uploadCsvSlideReducer,
+  },
 })
 
 export type RootState = ReturnType<typeof store.getState>
