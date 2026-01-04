@@ -16,6 +16,7 @@
     "@axa-fr/react-oidc": "^7.26.1-alpha.1797",
     "@gouvfr/dsfr": "^1.14.3",
     "@reduxjs/toolkit": "^2.11.2",
+    "detect-file-encoding-and-language": "^2.4.0",
     "papaparse": "^5.5.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

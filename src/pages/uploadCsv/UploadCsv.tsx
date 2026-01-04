@@ -6,10 +6,13 @@ import { GridContainer } from '@src/components/grid/GridContainer'
 import { GridRow } from '@src/components/grid/GridRow'
 import { Layout } from '@src/components/layout/Layout'
 import { classNames } from '@src/components/utils/classNames'
+import { parseCsv } from '@src/lib/csvParser/parseCsv'
 
 export function UploadCsv() {
   const onDropFile = useCallback((file: File) => {
-    console.log('Fichier reçu dans UploadCsv : ', file.name)
+    parseCsv(file).then((result) => {
+      console.log(result)
+    })
   }, [])
 
   return (

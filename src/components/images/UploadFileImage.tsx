@@ -1,7 +1,7 @@
 import { classNames } from '../utils/classNames'
 import './index.css'
 
-export function UploadFile(props: { className?: string }) {
+export function UploadFileImage(props: { className?: string }) {
   return (
     <img
       className={classNames(
