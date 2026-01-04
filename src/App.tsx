@@ -7,10 +7,12 @@ import applicationReducer from './applicationSlice'
 import { useOidcConfiguration } from './hooks/useOidcConfiguration'
 import { Accueil } from './pages/accueil/Accueil'
 import { PlanDuSite } from './pages/planDuSite/PlanDuSite'
+import { UploadCsv } from './pages/uploadCsv/UploadCsv'
 
 const router = createBrowserRouter([
   { path: '/', Component: Accueil },
   { path: '/plan-du-site', Component: PlanDuSite },
+  { path: '/upload-csv', Component: UploadCsv },
 ])
 
 const store = configureStore({

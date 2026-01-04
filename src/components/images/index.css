@@ -1,0 +1,13 @@
+.upload-file-image {
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto;
+
+  background-color: var(--background-alt-blue-ecume);
+  border-radius: 50%;
+  padding: 1rem;
+
+  &:hover {
+    background-color: var(--background-alt-blue-ecume-hover);
+  }
+}
