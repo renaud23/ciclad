@@ -13,7 +13,7 @@ export async function parseCsv(file: File) {
       dynamicTyping: true,
       encoding: info.encoding ?? 'UTF-8',
       complete: (r) => {
-        resolve({ header, rows, nbRows: rows.length, file })
+        resolve({ header, rows, nbRows: rows.length, fileName: file.name })
       },
       step: (r) => {
         header = r.meta.fields ?? []

@@ -1,4 +1,5 @@
 import {
+  Activity,
   type ChangeEvent,
   useCallback,
   useEffect,
@@ -15,12 +16,28 @@ function getItemsFromDragEvent(e: DragEvent) {
 }
 
 type DropFilesProps = {
-  onDropFile?: (file: File) => void
+  onDropFile?: (file?: File) => void
   className?: string
+  id?: string
 }
 
-export function DropFiles({ onDropFile, className }: DropFilesProps) {
-  const [file, setFile] = useState<File | null>(null)
+function ErrorFileType() {
+  return (
+    <div className="fr-messages-group">
+      <p className="fr-message fr-message--error">
+        Format de fichier non supporté
+      </p>
+    </div>
+  )
+}
+
+export function DropFiles({
+  onDropFile,
+  className,
+  id = 'upload-file',
+}: DropFilesProps) {
+  const [file, setFile] = useState<File | undefined>()
+  const [onError, setOnError] = useState(false)
   const zoneEl = useRef<HTMLDivElement>(null)
   const inputEl = useRef<HTMLInputElement>(null)
 
@@ -45,7 +62,13 @@ export function DropFiles({ onDropFile, className }: DropFilesProps) {
 
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setFile(e.target.files[0])
+      if (e.target.files[0].type.startsWith('text/csv')) {
+        setFile(e.target.files[0])
+        setOnError(false)
+      } else {
+        setFile(undefined)
+        setOnError(true)
+      }
     }
   }, [])
 
@@ -59,14 +82,17 @@ export function DropFiles({ onDropFile, className }: DropFilesProps) {
   }, [drop, dragAndDrop])
 
   useEffect(() => {
-    if (file) {
-      onDropFile?.(file)
-    }
+    onDropFile?.(file)
   }, [file, onDropFile])
 
   return (
     <div
-      className={classNames('drag-drop-files', className ?? '')}
+      className={classNames(
+        'drag-drop-files',
+        'fr-upload-group',
+        className ?? '',
+        { 'fr-upload-group--error': onError },
+      )}
       ref={zoneEl}
       onDragOver={(e) => {
         const items = [...e.dataTransfer.items].filter(
@@ -87,35 +113,33 @@ export function DropFiles({ onDropFile, className }: DropFilesProps) {
           .map((it) => it.getAsFile())
           .filter((f) => f)
         if (files.length) {
-          setFile(files[0])
+          setFile(files[0] ?? undefined)
         }
       }}
     >
       <UploadFileImage className="fr-mt-1w" />
-      <label>
-        <p>Glissez-déposez votre fichier CSV</p>
+      <label className="fr-label" htmlFor={id}>
+        Glissez-déposez votre fichier CSV
+        <span className="fr-hint-text">
+          Indication : taille maximale : XXX Mo. Formats supportés : csv. Un
+          seul fichier possible.
+        </span>
       </label>
-      <input
-        className="input-file"
-        type="file"
-        accept=".csv"
-        onChange={onChange}
-        ref={inputEl}
-      />
-      <button
-        type="button"
-        className={classNames(
-          'fr-btn',
-          'fr-btn--icon-right',
-          'fr-icon-upload-2-line',
-          'upload-button',
-        )}
-        onClick={() => {
-          inputEl?.current?.click()
-        }}
-      >
-        Sélectionner un fichier CSV
-      </button>
+      <div className="input-file">
+        <input
+          className={classNames('fr-upload', 'input-file')}
+          aria-describedby="upload-3-messages"
+          type="file"
+          id={id}
+          name="upload"
+          onChange={onChange}
+          ref={inputEl}
+          accept=".csv"
+        />
+        <Activity mode={onError ? 'visible' : 'hidden'}>
+          <ErrorFileType />
+        </Activity>
+      </div>
     </div>
   )
 }

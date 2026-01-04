@@ -12,7 +12,7 @@ function Metadata({ data }: { data?: DataBrut }) {
   if (data) {
     return (
       <p>
-        Votre fichier {data.file.name} a été chargé avec succés. Il
+        Votre fichier {data.fileName} a été chargé avec succés. Il
         contient&nbsp;{data.nbRows}&nbsp;{data.nbRows > 1 ? 'lignes' : 'ligne'}.
       </p>
     )
@@ -26,10 +26,14 @@ export function UploadFile() {
   const dispatch = useDispatch()
 
   const onDropFile = useCallback(
-    (file: File) => {
-      parseCsv(file).then((result) => {
-        dispatch(updateData(result as DataBrut))
-      })
+    (file?: File) => {
+      if (file) {
+        parseCsv(file).then((result) => {
+          dispatch(updateData(result as DataBrut))
+        })
+      } else {
+        dispatch(updateData(undefined))
+      }
     },
     [dispatch],
   )
