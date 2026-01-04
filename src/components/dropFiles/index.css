@@ -1,0 +1,9 @@
+.drag-drop-files {
+  height: 250px;
+  width: 100%;
+  border: dashed 2px #007bff;
+
+  .input-file {
+    visibility: hidden;
+  }
+}

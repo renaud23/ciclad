@@ -24,7 +24,7 @@ export function AccueilPublic() {
           <button
             className={classNames(
               'fr-btn',
-              ' fr-btn--icon-right',
+              'fr-btn--icon-right',
               'fr-icon-lock-line',
             )}
             type="button"
