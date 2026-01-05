@@ -13,18 +13,10 @@ function DisplayHeader(props: { header?: string[] }) {
     return (
       <div className="header-display">
         <h2>Champs détectés dans votre fichier :</h2>
-        <ul className={classNames('fr-badges-group')}>
+        <ul className={classNames('fr-tags-group')}>
           {props.header.map((name: string) => (
             <li key={name}>
-              <p
-                className={classNames(
-                  'fr-badge',
-                  'fr-badge--sm',
-                  'fr-badge--green-emeraude',
-                )}
-              >
-                {name}
-              </p>
+              <p className={classNames('fr-tag')}>{name}</p>
             </li>
           ))}
         </ul>
@@ -54,7 +46,11 @@ export function Verification() {
   return (
     <>
       <DisplayHeader header={dataBrut?.header} />
-      <VariableMapping name="nom" expectedType="string" />
+      <ul>
+        <li>
+          <VariableMapping name="nom" expectedType="string" />
+        </li>
+      </ul>
     </>
   )
 }
