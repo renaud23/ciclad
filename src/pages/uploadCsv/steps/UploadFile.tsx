@@ -20,17 +20,20 @@ function Metadata({ data }: { data?: DataBrut }) {
   return null
 }
 
+/**
+ *
+ * @returns
+ */
 export function UploadFile() {
   const data = useSelector((state: RootState) => state.uploadCsv.dataBrut)
 
   const dispatch = useDispatch()
 
   const onDropFile = useCallback(
-    (file?: File) => {
+    async (file?: File) => {
       if (file) {
-        parseCsv(file).then((result) => {
-          dispatch(updateData(result as DataBrut))
-        })
+        const result = (await parseCsv(file)) as DataBrut
+        dispatch(updateData(result as DataBrut))
       } else {
         dispatch(updateData(undefined))
       }

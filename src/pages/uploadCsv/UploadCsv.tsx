@@ -13,11 +13,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BlankStep } from '../../pages/uploadCsv/steps/BlankStep'
 import { UploadFile } from '../../pages/uploadCsv/steps/UploadFile'
 import { goNext, goPrevious } from './slice/uploadCsvSlice'
+import { Verification } from './steps/Verification'
 
 function getCurrentStep(index: number) {
   switch (index) {
     case 1:
       return <UploadFile />
+    case 2:
+      return <Verification />
     default:
       return <BlankStep />
   }
