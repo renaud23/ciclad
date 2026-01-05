@@ -19,6 +19,7 @@ type DropFilesProps = {
   onDropFile?: (file?: File) => void
   className?: string
   id?: string
+  file?: File
 }
 
 function ErrorFileType() {
@@ -36,7 +37,6 @@ export function DropFiles({
   className,
   id = 'upload-file',
 }: DropFilesProps) {
-  const [file, setFile] = useState<File | undefined>()
   const [onError, setOnError] = useState(false)
   const zoneEl = useRef<HTMLDivElement>(null)
   const inputEl = useRef<HTMLInputElement>(null)
@@ -60,17 +60,20 @@ export function DropFiles({
     }
   }, [])
 
-  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      if (e.target.files[0].type.startsWith('text/csv')) {
-        setFile(e.target.files[0])
-        setOnError(false)
-      } else {
-        setFile(undefined)
-        setOnError(true)
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files) {
+        if (e.target.files[0].type.startsWith('text/csv')) {
+          onDropFile?.(e.target.files[0])
+          setOnError(false)
+        } else {
+          onDropFile?.(undefined)
+          setOnError(true)
+        }
       }
-    }
-  }, [])
+    },
+    [onDropFile],
+  )
 
   useEffect(() => {
     window.addEventListener('drop', drop)
@@ -80,10 +83,6 @@ export function DropFiles({
       window.removeEventListener('dragover', dragAndDrop)
     }
   }, [drop, dragAndDrop])
-
-  useEffect(() => {
-    onDropFile?.(file)
-  }, [file, onDropFile])
 
   return (
     <div
@@ -113,7 +112,7 @@ export function DropFiles({
           .map((it) => it.getAsFile())
           .filter((f) => f)
         if (files.length) {
-          setFile(files[0] ?? undefined)
+          onDropFile?.(files[0] ?? undefined)
         }
       }}
     >

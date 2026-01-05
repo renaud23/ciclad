@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { BlankStep } from '../../pages/uploadCsv/steps/BlankStep'
 import { UploadFile } from '../../pages/uploadCsv/steps/UploadFile'
+import './index.css'
 import { goNext, goPrevious } from './slice/uploadCsvSlice'
 import { Verification } from './steps/Verification'
 
@@ -43,6 +44,7 @@ export function UploadCsv() {
   const nbSteps = useSelector((state: RootState) => state.uploadCsv.nbSteps)
 
   const dispatch = useDispatch()
+
   const handleNextStep = useCallback(() => {
     dispatch(goNext())
   }, [dispatch])

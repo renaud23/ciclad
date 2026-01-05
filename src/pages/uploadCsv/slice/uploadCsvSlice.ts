@@ -1,4 +1,5 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
+import type { AggregatedTypes } from '@src/lib/csvAnalyzer/csvAnalyzer'
 import type { DataBrut } from '@src/types'
 
 import { checkIfNavIsLocked } from './checkIfNavIsLocked'
@@ -11,6 +12,7 @@ export type UploadCsvState = {
   nextTitle?: string
   navigationLocked: boolean
   dataBrut?: DataBrut
+  aggregatedTypes?: AggregatedTypes
 }
 
 const initialState: UploadCsvState = {
@@ -20,6 +22,7 @@ const initialState: UploadCsvState = {
   nextTitle: getTitle(2),
   navigationLocked: true,
   dataBrut: undefined,
+  aggregatedTypes: undefined,
 }
 
 export const uploadCsvSlide = createSlice({
@@ -48,10 +51,22 @@ export const uploadCsvSlide = createSlice({
       state.dataBrut = action.payload
       state.navigationLocked = checkIfNavIsLocked(state)
     },
+    updateTypes: (
+      state,
+      action: PayloadAction<AggregatedTypes | undefined>,
+    ) => {
+      state.aggregatedTypes = action.payload
+    },
   },
 })
 
-export const { goNext, goPrevious, updateData, lockNav, unlockNav } =
-  uploadCsvSlide.actions
+export const {
+  goNext,
+  goPrevious,
+  updateData,
+  lockNav,
+  unlockNav,
+  updateTypes,
+} = uploadCsvSlide.actions
 
 export default uploadCsvSlide.reducer

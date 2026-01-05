@@ -7,13 +7,20 @@ export async function parseCsv(file: File) {
   const info = await languageEncoding(file)
 
   return new Promise((resolve, reject) => {
+    console.log(file)
     Papa.parse<Record<string, unknown>, File>(file, {
       delimiter: ',',
       header: true,
       dynamicTyping: true,
       encoding: info.encoding ?? 'UTF-8',
-      complete: (r) => {
-        resolve({ header, rows, nbRows: rows.length, fileName: file.name })
+      complete: () => {
+        resolve({
+          header,
+          rows,
+          nbRows: rows.length,
+          fileName: file.name,
+          fileSize: file.size,
+        })
       },
       step: (r) => {
         header = r.meta.fields ?? []

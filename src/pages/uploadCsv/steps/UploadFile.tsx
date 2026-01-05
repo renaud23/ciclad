@@ -6,14 +6,25 @@ import { parseCsv } from '@src/lib/csvParser/parseCsv'
 import type { DataBrut } from '@src/types'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateData } from '../slice/uploadCsvSlice'
+import { updateData, updateTypes } from '../slice/uploadCsvSlice'
+
+function prepareSize(nbBytes = 0) {
+  if (nbBytes < 1024) {
+    return `${nbBytes} octets`
+  }
+  if (nbBytes < 1024 * 1024) {
+    return `${Math.ceil(nbBytes / 1024)} ko`
+  }
+  return `${Math.ceil(nbBytes / (1024 * 2))} Mo`
+}
 
 function Metadata({ data }: { data?: DataBrut }) {
   if (data) {
     return (
       <p>
-        Votre fichier {data.fileName} a été chargé avec succés. Il
-        contient&nbsp;{data.nbRows}&nbsp;{data.nbRows > 1 ? 'lignes' : 'ligne'}.
+        Votre fichier {data.fileName} de {prepareSize(data.fileSize)} a été
+        chargé avec succés. Il contient&nbsp;{data.nbRows}&nbsp;
+        {data.nbRows > 1 ? 'lignes' : 'ligne'}.
       </p>
     )
   }
@@ -36,6 +47,7 @@ export function UploadFile() {
         dispatch(updateData(result as DataBrut))
       } else {
         dispatch(updateData(undefined))
+        dispatch(updateTypes(undefined))
       }
     },
     [dispatch],

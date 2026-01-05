@@ -1,6 +1,6 @@
 import type { DataBrut } from '@src/types'
 
-type AggregatedTypes = Record<string, Record<string, number>>
+export type AggregatedTypes = Record<string, Record<string, number>>
 
 function appendType(ty: string, ag: Record<string, number>) {
   if (ty in ag) {
